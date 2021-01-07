@@ -1,0 +1,110 @@
+$font_main: 'Fira Sans', sans-serif; // doit exister en 300, 400, 600 et 700;
+
+body {
+    font-family: $font_main;
+}
+
+h1, h2, h3, h4 {
+    font-weight: 600;
+}
+
+strong {
+    font-weight: 600;
+}
+
+h1 { margin-top: 3rem; }
+h2 { margin-top: 2.5rem; }
+h3 { margin-top: 2rem; }
+h1, h2, h3, h4 {
+    margin-bottom: 1rem;
+}
+
+h1 { font-size: 2rem; } /*  32px */
+h2 { font-size: 1.65rem; } /*  26px */
+h3 { font-size: 1.25rem; } /*  20px */
+
+.text_size_4 {
+	font-size: 4em;
+}
+
+.text_small_responsive { font-size: 0.875rem; } /* xs moins de 576px - 14px */
+@media (min-width: 576px) { .text_small_responsive { font-size: 0.9rem; } } /* sm moins de 768px */
+@media (min-width: 768px) { .text_small_responsive { font-size: 1rem; } } /* md moins de 992px */
+@media (min-width: 992px) { .text_small_responsive { font-size: 1.1rem; } } /* lg moins de 1200px */
+@media (min-width: 1200px) { .text_small_responsive { font-size: 1.25rem; } } /* xl - 20px */  
+
+.text_responsive { font-size: 1rem; } /* xs moins de 576px */
+@media (min-width: 576px) { .text_responsive { font-size: 1.1rem; } }
+@media (min-width: 768px) { .text_responsive { font-size: 1.2rem; } }
+@media (min-width: 992px) { .text_responsive { font-size: 1.3rem; } }
+@media (min-width: 1200px) { .text_responsive { font-size: 1.4rem; } } /* xl */
+
+.text_big_responsive { font-size: 1.25rem; } /* 20px - titre de card */
+@media (min-width: 576px) { .text_big_responsive { font-size: 1.4rem; } }
+@media (min-width: 768px) { .text_big_responsive { font-size: 1.5rem; } }
+@media (min-width: 992px) { .text_big_responsive { font-size: 1.6rem; } }
+@media (min-width: 1200px) { .text_big_responsive { font-size: 1.75rem; } }
+
+.text_bigger_responsive { font-size: 2rem; } /* 32px */
+@media (min-width: 576px) { .text_bigger_responsive { font-size: 2.25rem; } }
+@media (min-width: 768px) { .text_bigger_responsive { font-size: 2.5rem; } }
+@media (min-width: 992px) { .text_bigger_responsive { font-size: 2.75rem; } }
+@media (min-width: 1200px) { .text_bigger_responsive { font-size: 3rem; } }
+
+#landing_page .type_js { min-height: calc(2rem * 2.5); } /* 2.5 pour deux lignes approx */
+@media (min-width: 576px) { #landing_page .type_js { min-height: calc(2.25rem * 2.5); } }
+@media (min-width: 768px) { #landing_page .type_js { min-height: calc(2.5rem * 2.5); } }
+@media (min-width: 992px) { #landing_page .type_js { min-height: calc(2.75rem * 2.5); } }
+@media (min-width: 1200px) { #landing_page .type_js { min-height: calc(3rem * 2.5); } }
+
+.font_size_875 {
+    font-size: 0.875rem; /* 14px déprécié */
+}
+
+.font_size_1250 {
+    font-size: 1.25rem; /* 20px déprécié */
+}
+
+.fs_750 {
+    font-size: .75rem; /* 12px */
+}
+
+.fs_875 {
+    font-size: .875rem; /* 14px */
+}
+
+.fs_1000 {
+    font-size: 1rem; /* 16px */
+}
+
+.fs_1250 {
+    font-size: 1.25rem; /* 20px */
+}
+
+.fs_1650 {
+    font-size: 1.65rem; /* 26px */
+}
+
+.text_color_87 {
+    color: rgba(0, 0, 0, 0.87);
+}
+
+.text_color_60 {
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.fw_300 {
+    font-weight: 300;
+}
+
+.fw_600 {
+    font-weight: 600;
+}
+
+.fw_700 {
+    font-weight: 700;
+}
+
+.lh_14 {
+    line-height: 1.4
+}

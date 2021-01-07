@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Course index{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+
+    <h1>Management des RH et de la transformation digitale</h1>
+
+    <div class="card-columns">
+
+        {% for course in courses %}
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title fw_600">{{ course.name }}</h5>
+                <p class="card-text fs_875">
+                    {% for teachingProfessor in course.teachingProfessor %}
+                    {{ teachingProfessor.firstName }} {{ teachingProfessor.lastName }} <br>
+                    {% endfor %}
+                </p>
+                <a class="btn btn_material p-0 m-0 mr-3" href="{{ path('course_show', {'id': course.id}) }}">show</a>
+                <a class="btn btn_material p-0 m-0 mr-3" href="{{ path('course_edit', {'id': course.id}) }}">edit</a>
+            </div>
+        </div>
+
+        {% else %}
+        <p>No records found</p>
+        {% endfor %}
+
+    </div>
+
+    {% if is_granted('ROLE_ADMIN') %}
+    <a class="btn btn-accent" href="{{ path('course_new') }}">Create new</a>
+    {% endif %}
+
+</div>
+{% endblock %}

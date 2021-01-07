@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Course{% endblock %}
+
+{% block body %}
+
+<div class="container mt-4">
+    <h1>Edit Course</h1>
+    {{ include('course/_form.html.twig') }}
+    <hr>
+    <a class="btn btn_material" href="{{ path('course_index') }}">Back to list</a>
+
+</div>
+
+{% endblock %}

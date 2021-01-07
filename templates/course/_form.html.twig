@@ -1,0 +1,91 @@
+{{ form_start(form) }}
+
+{% if form.name is defined %}
+<div class="mb-3">
+    {{ form_label(form.name) }}
+    {{ form_widget(form.name) }}
+    {{ form_help(form.name) }}
+</div>
+{% endif %}
+
+<h2>Learning Outcomes</h2>
+{{ form_widget(form.learningOutcomes) }}
+
+<h2>Sessions</h2>
+<div id="sessions" class="sessions" data-prototype="{{ form_widget(form.sessions.vars.prototype)|e('html_attr') }}">
+    <div class="row">
+        <div class="col-md-2 fw_600">Duration</div>
+        <div class="col-md-4 fw_600">Content</div>
+        <div class="col-md-3 fw_600">Bibliography References</div>
+        <div class="col-md-3 fw_600">Assignment</div>
+    </div>
+    {% for session in form.sessions %}
+    <h3 class="d-inline-block">Session {{ loop.index }}</h3>
+    {% if is_granted('ROLE_ADMIN') %}
+    <a class="btn btn_material" href="{{ path('session_delete_simple', {'id': session.vars.data.id}) }}">Delete</a>
+    {% endif %}
+    <div class="row">
+        <div class="col-md-2">
+            {{ form_widget(session.duration) }}
+        </div>
+        <div class="col-md-4">
+            {{ form_widget(session.theme) }}
+        </div>
+        <div class="col-md-3">
+            {{ form_widget(session.bibliographyReferences) }}
+        </div>
+        <div class="col-md-3">
+            {{ form_widget(session.assignment) }}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{{ form_widget(form.save_and_add_session) }}
+
+<h2>Assessments</h2>
+<div id="assessments" class="assessments"
+    data-prototype="{{ form_widget(form.assessments.vars.prototype)|e('html_attr') }}">
+    <div class="row mb-3">
+        <div class="col-md-2 fw_600">Stage</div>
+        <div class="col-md-4 fw_600">Method</div>
+        <div class="col-md-3 fw_600">Description</div>
+    </div>
+    {% for assessment in form.assessments %}
+    <h3 class="d-inline-block">Assessment {{ loop.index }}</h3>
+    {% if is_granted('ROLE_ADMIN') %}
+    <a class="btn btn_material"
+        href="{{ path('assessment_delete_simple', {'id': assessment.vars.data.id}) }}">Delete</a>
+    {% endif %}
+    <div class="row mb-3">
+        <div class="col-md-2">
+            {{ form_widget(assessment.stage) }}
+        </div>
+        <div class="col-md-4">
+            {{ form_widget(assessment.method) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_widget(assessment.description) }}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{{ form_widget(form.save_and_add_assessment) }}
+
+<h2>Teaching Methods</h2>
+{{ form_widget(form.teachingMethods) }}
+
+<h2>Textbook</h2>
+{{ form_widget(form.textbook) }}
+
+<h2>Bibliography</h2>
+{{ form_widget(form.bibliography) }}
+
+<h2>E-Learning</h2>
+{{ form_widget(form.eLearning) }}
+
+<h2>Links with companies</h2>
+{{ form_widget(form.linksWithCompanies) }}
+
+{{ form_end(form) }}

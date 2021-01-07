@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Assessment index{% endblock %}
+
+{% block body %}
+    <h1>Assessment index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Method</th>
+                <th>Duration</th>
+                <th>Stage</th>
+                <th>IsSupervised</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for assessment in assessments %}
+            <tr>
+                <td>{{ assessment.id }}</td>
+                <td>{{ assessment.method }}</td>
+                <td>{{ assessment.duration }}</td>
+                <td>{{ assessment.stage }}</td>
+                <td>{{ assessment.isSupervised ? 'Yes' : 'No' }}</td>
+                <td>{{ assessment.description }}</td>
+                <td>
+                    <a href="{{ path('assessment_show', {'id': assessment.id}) }}">show</a>
+                    <a href="{{ path('assessment_edit', {'id': assessment.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('assessment_new') }}">Create new</a>
+{% endblock %}

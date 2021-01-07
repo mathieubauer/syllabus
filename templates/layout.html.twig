@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+{% block title %}Learn{% endblock %}
+
+{% block opengraph %}{{ include('_opengraph.html.twig') }}{% endblock %}
+
+{# blocks stylesheets, nav et scripts ? #}
+
+{% block body %}
+    {#
+    {% block content %}
+    {% block rolebar %}{{ include('_rolebar.html.twig') }}{% endblock %}
+    {% block alert %}{{ include('_alert.html.twig') }}{% endblock %}
+    {% endblock %}
+    #}
+{% endblock %}

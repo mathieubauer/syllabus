@@ -1,0 +1,48 @@
+$default-card-bg-color: #FEE775;
+
+// $body-bg: #15202B;
+// $body-bg: #F8F8FA;
+$body-bg: #ffffff ;
+$ampli-color: #113f79;
+$learn-color: #0D2232;
+
+$theme-colors: (
+	"primary": #083A7D,
+	"secondary": #343A41,
+	"main": #1245F5,
+    "accent": #FF5722,
+    // "accent": #F8BE45,
+    "ampli": $ampli-color,
+    "ampli_red": #D23F31,
+    "twitter_bg":#15202B,
+    "learn": $learn-color,
+   
+    
+    "cyan": #00BCD4,
+    "teal": #009688,
+    "orange": #FF9800,
+    "deep_orange": #FF5722,
+
+    "green": #4caf50,
+    "light_green": #8bc34a,
+    "indigo": #3F51B5,
+    "deep_purple": #673AB7,
+
+    "cyan_dark": #0097A7,
+    "teal_dark": #00796B, /* 700 */
+    "orange_dark": #F57C00, /* 700 */
+    "deep_orange_dark": #E64A19, /* 700 */
+    
+    "green_dark": #388e3c, /* 700 */
+    "light_green_dark": #689f38, /* 700 */
+    "indigo_dark": #303F9F, /* 700 */
+    "deep_purple_dark": #512da8, /* 700 */
+
+    "ifcam_very_dark_blue": #1E3252,
+    "ifcam_strong_red": #D73330,
+
+    "body": $body-bg,
+
+);
+
+

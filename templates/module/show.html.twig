@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Module{% endblock %}
+
+{% block body %}
+
+<div class="container mt-4">
+    <h1>{{ module.name }}</h1>
+    <p>Semester: {{ module.semester }}</p>
+    <p>ECTS: {{ module.ects }}</p>
+    <p>Courses:</p>
+    <ul>
+        {% for course in module.courses %}
+        <li>
+            <a href="{{ path('course_show', {'id': course.id}) }}">{{ course.name }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+    <hr>
+    <a href="{{ path('module_index') }}">back to list</a>
+    <a href="{{ path('module_edit', {'id': module.id}) }}">edit</a>
+    {{ include('module/_delete_form.html.twig') }}
+
+</div>
+
+
+
+{% endblock %}

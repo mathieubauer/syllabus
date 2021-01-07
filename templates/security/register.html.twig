@@ -1,0 +1,77 @@
+{% extends 'layout.html.twig' %}
+{% block title %}{{ parent() }} - Inscription{% endblock %}
+{% block body %}
+
+<div class="container-fluid m-0 p-0">
+    <div class="row no-gutters">
+
+        <div class="col-md-6 p-md-5 p-3 d-flex align-items-center">
+            <div class="w-100">
+
+                {{ include('_alert.html.twig') }}
+
+                {% if error is defined %}
+                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+
+                {% if manual_error is defined %}
+                {% if manual_error %}
+                <div class="alert alert-danger">{{ manual_error }}</div>
+                {% endif %}
+                {% endif %}
+
+                {% if app.user %}
+                <div class="alert alert-warning my-3 text-center">
+                    Vous êtes déja connecté avec l'adresse : {{ app.user.username }} | <a
+                        href="{{ path('app_logout') }}">Se
+                        déconnecter</a>
+                </div>
+                {% endif %}
+
+                <form method="post">
+
+                    <h1 class="mb-3 fw_600 text_responsive">Inscription</h1>
+
+                    <label for="inputEmail" class="sr-only">Email</label>
+                    <input type="email" name="email" id="inputEmail" class="form-control mb-3" placeholder="Email"
+                        required autofocus>
+
+                    <label for="inputPassword" class="sr-only">Password</label>
+                    <input type="password" name="password" id="inputPassword" class="form-control mb-3"
+                        placeholder="Mot de passe" required>
+
+                    <label for="inputPasswordConfirm" class="sr-only">Confirm Password</label>
+                    <input type="password" name="passwordConfirm" id="inputPasswordConfirm" class="form-control mb-4"
+                        placeholder="Confirmer le mot de passe" required>
+
+                    <div class="text-center">
+                        <button class="btn btn-primary ml-0" type="submit">S'inscrire</button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+
+        {# Côté droit - Image #}
+
+        <div class="col-md-6 d-none d-md-block">
+            <img src="{{ asset('/img/phone.jpg') }}" alt="Ampli off" class="vh_100_navbar w-100"
+                style="object-fit: cover; object-position: center center;">
+        </div>
+
+        {#
+        <div class="col-md-6 overflow-hidden d-none d-md-block">
+            <img src="{{ asset('/img/phone.jpg') }}" alt="Ampli off" class="vh-100 position-fixed">
+        </div>
+        #}
+
+    </div>
+</div>
+
+{# <div class="py-4 rounded-0 text-center bg-pitch-2z fixed-bottom">
+    <p class="text-pitch px-3 mb-0 font_size_875">En poursuivant votre navigation, vous acceptez les <a class
+            href="{{ path('cgu') }}" target="_blank">Conditions Générales d'Utilisation</a>.</p>
+</div> #}
+
+{% endblock %}

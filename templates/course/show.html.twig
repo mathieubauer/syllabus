@@ -1,0 +1,117 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Course{% endblock %}
+
+{% block body %}
+
+<div class="container my-4">
+    <div class="card">
+
+        <h1 class="card-header mt-0 py-4 bg-learn text-white">{{ course.name }}</h1>
+
+        <div class="card-body">
+
+            <h2 class="mt-3">Course References</h2>
+            <div class="row">
+                <div class="col-md-3 fw_600">Module:</div>
+                <div class="col-md-9"><a
+                        href="{{ path('module_show', {'id': course.module.id}) }}">{{ course.module.name }}</a></div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 fw_600">Teaching Professor(s):</div>
+                <div class="col-md-9">
+                    {% for professor in course.teachingProfessor %}
+                    <span>{{ professor.firstName }} {{ professor.lastName }}</span>
+                    {% if not loop.last %} & {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 fw_600">Lecture Hours:</div>
+                <div class="col-md-9">{{ course.lectureHours }}</a></div>
+            </div>
+
+            <h2>Learning Outcomes</h2>
+            <p class="font-weight-bold">On successful completion of this course, students should be able to:</p>
+            {{ course.learningOutcomes|raw }}
+
+
+            <h2>Assessment Measures</h2>
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="table-cyan">
+                        <th scope="col">Stage</th>
+                        <th scope="col">Method</th>
+                        <th scope="col">Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for assessment in course.assessments %}
+                    <tr>
+                        <th scope="row">{{ assessment.stage|nl2br }}</th>
+                        <td>{{ assessment.method|nl2br }}</td>
+                        <td>{{ assessment.description|nl2br }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <h2>Content / Session list</h2>
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="table-cyan">
+                        <th scope="col">Session</th>
+                        <th scope="col">Duration</th>
+                        <th scope="col">Theme</th>
+                        <th scope="col">Bibliography References</th>
+                        <th scope="col">Assignment</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for session in course.sessions %}
+                    <tr>
+                        <th scope="row">{{ loop.index }}</th>
+                        <td>{{ session.duration}}</td>
+                        <td>{{ session.theme|nl2br }}</td>
+                        <td>{{ session.bibliographyReferences|nl2br }}</td>
+                        <td>{{ session.assignment|nl2br }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            {% if course.teachingMethods %}
+            <h2>Teaching Methods</h2>
+            <p>{{ course.teachingMethods|nl2br }}</p>
+            {% endif %}
+
+            {% if course.eLearning %}
+            <h2>E-Learning</h2>
+            <p>{{ course.eLearning|nl2br }}</p>
+            {% endif %}
+
+            {% if course.textbook %}
+            <h2>Textbook</h2>
+            <p>{{ course.textbook|nl2br }}</p>
+            {% endif %}
+
+            {% if course.bibliography %}
+            <h2>Bibliography</h2>
+            <p>{{ course.bibliography|nl2br }}</p>
+            {% endif %}
+
+            {% if course.linksWithCompanies %}
+            <h2>Links with companies</h2>
+            <p>{{ course.linksWithCompanies|nl2br }}</p>
+            {% endif %}
+
+        </div>
+
+    </div>
+
+    <a class="btn btn_material mt-3" href="{{ path('course_index') }}">Back to list</a>
+    <a class="btn btn-accent mt-3" href="{{ path('course_edit', {'id': course.id}) }}">edit</a>
+
+</div>
+
+{% endblock %}
