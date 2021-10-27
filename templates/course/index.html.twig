@@ -1,38 +1,34 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
-{% block title %}Course index{% endblock %}
+{% block title %}Syllabus{% endblock %}
 
 {% block body %}
-<div class="container mt-4">
 
-    <h1>Management des RH et de la transformation digitale</h1>
+{% for semester in semesters %}
 
-    <div class="card-columns">
+<h1>Semester {{ semester.name }}</h1>
+<p class="fw_600">{{ semester.period }}</p>
 
-        {% for course in courses %}
+{% for module in modules|filter(module => module.semester == semester) %}
 
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title fw_600">{{ course.name }}</h5>
-                <p class="card-text fs_875">
-                    {% for teachingProfessor in course.teachingProfessor %}
-                    {{ teachingProfessor.firstName }} {{ teachingProfessor.lastName }} <br>
-                    {% endfor %}
-                </p>
-                <a class="btn btn_material p-0 m-0 mr-3" href="{{ path('course_show', {'id': course.id}) }}">show</a>
-                <a class="btn btn_material p-0 m-0 mr-3" href="{{ path('course_edit', {'id': course.id}) }}">edit</a>
+<div class="module_container p-4 mb-3 border border-{{ semester.colorName }} rounded">
+
+    <div class="container">
+        <h3 class="mt-0">{{ module.name }}</h3>
+        <div class="row">
+            {% for course in module.courses %}
+            <div class="col">
+                {% include 'course/_card.html.twig' with {'class_bg': 'bg-' ~ semester.colorName ~ '_light' } %}
             </div>
+            {% endfor %}
+
         </div>
-
-        {% else %}
-        <p>No records found</p>
-        {% endfor %}
-
     </div>
 
-    {% if is_granted('ROLE_ADMIN') %}
-    <a class="btn btn-accent" href="{{ path('course_new') }}">Create new</a>
-    {% endif %}
-
 </div>
+
+{% endfor %}
+
+{% endfor %}
+
 {% endblock %}

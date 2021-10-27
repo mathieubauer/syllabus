@@ -23,29 +23,25 @@ class CourseType extends AbstractType
 
             // ADMIN
 
-            // ->add('name', TextType::class)
-            // ->add('lectureHours', IntegerType::class)
+            ->add('name', TextType::class)
+            ->add('lectureHours', IntegerType::class)
 
-            // ->add('teachingProfessor', EntityType::class, [
-            //     'class' => User::class,
-            //     'choice_label' => 'email',
-            //     'multiple' => 'true',
-            //     'expanded' => 'true',
-            // ])
+            ->add('teachingProfessor', EntityType::class, [
+                'class' => User::class,
+                'choice_label' => 'email',
+                'multiple' => 'true',
+                'expanded' => 'true',
+            ])
 
-            // ->add('module', EntityType::class, [
-            //     'class' => Module::class,
-            //     'choice_label' => 'name',
-            // ])
+            ->add('module', EntityType::class, [
+                'class' => Module::class,
+                'choice_label' => 'name',
+                'placeholder' => 'Choose a module',
+            ])
 
             // PROF
 
-            ->add('learningOutcomes', CKEditorType::class, [
-                'config_name' => 'user_config',
-                'config' => [
-                    'uiColor' => '#ffffff'
-                ]
-            ])
+            ->add('learningOutcomes', CKEditorType::class)
 
             ->add('sessions', CollectionType::class, [
                 'entry_type' => SessionType::class,
@@ -59,16 +55,12 @@ class CourseType extends AbstractType
                 'allow_add' => true,
             ])
 
-            ->add('eLearning')
-            ->add('textbook')
-            ->add('bibliography')
-            ->add('linksWithCompanies')
-            ->add('teachingMethods')
+            ->add('eLearning', CKEditorType::class)
+            ->add('textbook', CKEditorType::class)
+            ->add('bibliography', CKEditorType::class)
+            ->add('linksWithCompanies', CKEditorType::class)
+            ->add('teachingMethods', CKEditorType::class)
 
-
-            ->add('save', SubmitType::class, [
-                'attr' => ['class' => 'btn btn-primary']
-            ])
             ->add('save_and_add_session', SubmitType::class, [
                 'attr' => ['class' => 'btn btn-outline-primary']
             ])

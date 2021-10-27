@@ -36,7 +36,7 @@ class Course
     private $module;
 
     /**
-     * @ORM\Column(type="smallint")
+     * @ORM\Column(type="float")
      */
     private $lectureHours;
 
@@ -140,12 +140,12 @@ class Course
         return $this;
     }
 
-    public function getLectureHours(): ?int
+    public function getLectureHours(): ?float
     {
         return $this->lectureHours;
     }
 
-    public function setLectureHours(int $lectureHours): self
+    public function setLectureHours(float $lectureHours): self
     {
         $this->lectureHours = $lectureHours;
 

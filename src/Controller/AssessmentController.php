@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Assessment;
 use App\Form\AssessmentType;
 use App\Repository\AssessmentRepository;
+use App\Repository\SemesterRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,10 +19,21 @@ class AssessmentController extends AbstractController
     /**
      * @Route("/", name="assessment_index", methods={"GET"})
      */
-    public function index(AssessmentRepository $assessmentRepository): Response
+    public function index(AssessmentRepository $assessmentRepository, SemesterRepository $semesterRepository): Response
     {
+
+        $assessments = $assessmentRepository->findBy([],
+            [ 
+                'stage' => 'DESC',
+                'method' => 'ASC',
+            ]
+        );
+
+        $semesters = $semesterRepository->findAll();
+
         return $this->render('assessment/index.html.twig', [
-            'assessments' => $assessmentRepository->findAll(),
+            'assessments' => $assessments,
+            'semesters' => $semesters,
         ]);
     }
 

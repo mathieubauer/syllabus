@@ -31,19 +31,21 @@ class Module
     private $leader;
 
     /**
-     * @ORM\Column(type="string", length=4)
-     */
-    private $semester;
-
-    /**
      * @ORM\Column(type="smallint")
      */
     private $ects;
 
     /**
      * @ORM\OneToMany(targetEntity=Course::class, mappedBy="module")
+     * @ORM\OrderBy({"lectureHours" = "DESC", "name" = "ASC"})
      */
     private $courses;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Semester::class, inversedBy="modules")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $semester;
 
     public function __construct()
     {
@@ -75,18 +77,6 @@ class Module
     public function setLeader(?User $leader): self
     {
         $this->leader = $leader;
-
-        return $this;
-    }
-
-    public function getSemester(): ?string
-    {
-        return $this->semester;
-    }
-
-    public function setSemester(string $semester): self
-    {
-        $this->semester = $semester;
 
         return $this;
     }
@@ -129,6 +119,18 @@ class Module
                 $course->setModule(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSemester(): ?Semester
+    {
+        return $this->semester;
+    }
+
+    public function setSemester(?Semester $semester): self
+    {
+        $this->semester = $semester;
 
         return $this;
     }

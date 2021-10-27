@@ -11,7 +11,7 @@ fos_ck_editor:
     default_config: user_config
     configs:
         user_config:
-            toolbar: [ ["Bold", "Italic", "Underline", "-", "NumberedList", "BulletedList" ] ]
+            toolbar: [ ["Bold", "Italic", "Underline", "-", "NumberedList", "BulletedList", "Link" ] ]
             removePlugins: 'elementspath'
             # uiColor: "#66AB16"
             extraPlugins: ['justify', 'font']

@@ -11,8 +11,10 @@ use Symfony\Component\Routing\Annotation\Route;
 
 use App\Entity\Module;
 use App\Entity\Course;
+use App\Entity\Semester;
 use App\Entity\User;
 use App\Entity\Session;
+use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 
 class DashboardController extends AbstractDashboardController
 {
@@ -21,13 +23,18 @@ class DashboardController extends AbstractDashboardController
      */
     public function index(): Response
     {
-        return parent::index();
+        $routeBuilder = $this->get(AdminUrlGenerator::class);
+        return $this->redirect($routeBuilder->setController(CourseCrudController::class)->generateUrl());
     }
 
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('Syllabus');
+            ->setTitle('Syllabus')
+            ->setFaviconPath('/img/favicon.svg')
+            ->renderContentMaximized()
+
+            ;
     }
 
     public function configureMenuItems(): iterable
@@ -37,11 +44,17 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToDashboard('Dashboard', 'fa fa-home'),
 
             // MenuItem::section('Blog'),
-            MenuItem::linkToCrud('Users', 'fa fa-tags', User::class),
-            MenuItem::linkToCrud('Modules', 'fa fa-tags', Module::class),
-            MenuItem::linkToCrud('Courses', 'fa fa-file-text', Course::class),
-            MenuItem::linkToCrud('Sessions', 'fa fa-file-text', Session::class),
-            MenuItem::linkToCrud('Assessments', 'fa fa-file-text', Assessment::class),
+            MenuItem::section('Entities'),
+            MenuItem::linkToCrud('Users', 'fa fa-users', User::class),
+            MenuItem::linkToCrud('Semester', 'fa fa-calendar', Semester::class),
+            MenuItem::linkToCrud('Modules', 'fa fa-copy', Module::class),
+            MenuItem::linkToCrud('Courses', 'fa fa-file', Course::class),
+            MenuItem::linkToCrud('Sessions', 'fa fa-file-alt', Session::class),
+            MenuItem::linkToCrud('Assessments', 'fa fa-file-alt', Assessment::class),
+
+            MenuItem::section('Links'),
+            MenuItem::linkToRoute('Home', 'fa fa-home', 'home'),
+            MenuItem::linkToRoute('Export CSV', 'fa fa-file-csv', 'export'),
 
             // MenuItem::section('Users'),
             // MenuItem::linkToCrud('Comments', 'fa fa-comment', Comment::class),

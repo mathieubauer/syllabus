@@ -1,14 +1,161 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Course{% endblock %}
+{% block title %}Edit Syllabus{% endblock %}
 
 {% block body %}
 
 <div class="container mt-4">
-    <h1>Edit Course</h1>
-    {{ include('course/_form.html.twig') }}
-    <hr>
-    <a class="btn btn_material" href="{{ path('course_index') }}">Back to list</a>
+
+    <h1>{{ course.name }} - Edit</h1>
+
+    {{ form_start(form) }}
+
+    {% if form.learningOutcomes is defined %}
+    <h2>Learning Outcomes</h2>
+    {{ form_widget(form.learningOutcomes) }}
+    {% endif %}
+
+    {% if form.sessions is defined %}
+    <h2>Sessions</h2>
+    <div id="sessions" class="sessions" data-prototype="{{ form_widget(form.sessions.vars.prototype)|e('html_attr') }}">
+        <div class="row">
+            <div class="col-md-2 fw_600">Duration</div>
+            <div class="col-md-4 fw_600">Content</div>
+            <div class="col-md-3 fw_600">Bibliography References</div>
+            <div class="col-md-3 fw_600">Assignment</div>
+        </div>
+        {% for session in form.sessions %}
+        <h3 class="d-inline-block">Session {{ loop.index }}</h3>
+
+        {% if is_granted('ROLE_ADMIN') %}
+
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn_material px-3 py-0 my-3" data-toggle="modal"
+            data-target="#exampleModal_{{ session.vars.data.id }}">
+            <i class="far fa-trash-alt"></i>
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal_{{ session.vars.data.id }}" tabindex="-1"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        Are you sure you want to delete this session?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                        <a class="btn btn-outline-danger"
+                            href="{{ path('session_delete_simple', {'id': session.vars.data.id}) }}">Yes, delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% endif %}
+
+        <div class="row">
+            <div class="col-md-2">
+                {{ form_widget(session.duration) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_widget(session.theme) }}
+            </div>
+            <div class="col-md-3">
+                {{ form_widget(session.bibliographyReferences) }}
+            </div>
+            <div class="col-md-3">
+                {{ form_widget(session.assignment) }}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {{ form_widget(form.save_and_add_session) }}
+
+    <h2>Assessments</h2>
+    <div id="assessments" class="assessments"
+        data-prototype="{{ form_widget(form.assessments.vars.prototype)|e('html_attr') }}">
+        <div class="row mb-3">
+            <div class="col-md-2 fw_600">Stage</div>
+            <div class="col-md-4 fw_600">Method</div>
+            <div class="col-md-3 fw_600">Description</div>
+        </div>
+        {% for assessment in form.assessments %}
+        <h3 class="d-inline-block">Assessment {{ loop.index }}</h3>
+
+        {% if is_granted('ROLE_ADMIN') %}
+
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn_material px-3 py-0 my-3" data-toggle="modal"
+            data-target="#assessmentModal_{{ assessment.vars.data.id }}">
+            <i class="far fa-trash-alt"></i>
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="assessmentModal_{{ assessment.vars.data.id }}" tabindex="-1"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        Are you sure you want to delete this assessment?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                        <a class="btn btn-outline-danger"
+                            href="{{ path('assessment_delete_simple', {'id': assessment.vars.data.id}) }}">Yes,
+                            delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% endif %}
+
+        <div class="row mb-3">
+            <div class="col-md-2">
+                {{ form_widget(assessment.stage) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_widget(assessment.method) }}
+            </div>
+            <div class="col-md-6">
+                {{ form_widget(assessment.description) }}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    {{ form_widget(form.save_and_add_assessment) }}
+
+    <h2>Teaching Methods</h2>
+    {{ form_widget(form.teachingMethods) }}
+
+    <h2>Textbook</h2>
+    {{ form_widget(form.textbook) }}
+
+    <h2>Bibliography</h2>
+    {{ form_widget(form.bibliography) }}
+
+    <h2>E-Learning</h2>
+    {{ form_widget(form.eLearning) }}
+
+    <h2>Links with companies</h2>
+    {{ form_widget(form.linksWithCompanies) }}
+
+    <div class="my-3 d-flex justify-content-between align-items-center">
+        <a href="{{ path('course_index') }}" class="btn btn_material">
+            <i class="fas fa-chevron-left mr-2"></i>
+            <span>back to course list</span>
+        </a>
+        <button type="submit" class="btn btn-primary" id="save" name="save">
+            Update
+            <i class="fas fa-save ml-2"></i>
+        </button>
+    </div>
+
+    {{ form_end(form) }}
 
 </div>
 

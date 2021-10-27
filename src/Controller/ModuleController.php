@@ -4,11 +4,13 @@ namespace App\Controller;
 
 use App\Entity\Module;
 use App\Form\ModuleType;
+use App\Repository\CourseRepository;
 use App\Repository\ModuleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/module")
@@ -20,8 +22,10 @@ class ModuleController extends AbstractController
      */
     public function index(ModuleRepository $moduleRepository): Response
     {
+
+        $modules = $moduleRepository->findBy([], ['semester' => 'ASC']);
         return $this->render('module/index.html.twig', [
-            'modules' => $moduleRepository->findAll(),
+            'modules' => $modules,
         ]);
     }
 
@@ -51,15 +55,25 @@ class ModuleController extends AbstractController
     /**
      * @Route("/{id}", name="module_show", methods={"GET"})
      */
-    public function show(Module $module): Response
+    public function show(Module $module, CourseRepository $courseRepository): Response
     {
+
+        $lectureHours = $courseRepository->createQueryBuilder('c')
+            ->andWhere('c.module = :module')
+            ->setParameter('module', $module)
+            ->select('SUM(c.lectureHours) as lh')
+            ->getQuery()
+            ->getSingleScalarResult();
+
         return $this->render('module/show.html.twig', [
             'module' => $module,
+            'lectureHours' => $lectureHours,
         ]);
     }
 
     /**
      * @Route("/{id}/edit", name="module_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function edit(Request $request, Module $module): Response
     {

@@ -5,3 +5,20 @@
 
 @import "_fonts";
 @import "_buttons";
+
+body {
+    padding-top: 56px;
+}
+
+.category {
+    padding: .5rem .75rem;
+    font-size: .625rem;
+    line-height: normal;
+    border-radius: 999px;
+    padding: .25rem .5rem;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.module_container {
+    border-left-width: 10px !important;
+}

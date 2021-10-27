@@ -20,6 +20,12 @@
     text-transform: uppercase;
     border: none;
     font-weight: 600;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.btn_material:hover {
+    box-shadow: none;
 }
 
 .btn_answer {
@@ -56,4 +62,14 @@
 
 .rounded_right {
     border-radius: 0 0.25rem 0.25rem 0;
+}
+
+.hidden_link, .hidden_link:hover {
+    color: inherit !important;
+    text-decoration: none !important;
+    cursor: pointer;
+}
+
+.pointer {
+    cursor: pointer;
 }

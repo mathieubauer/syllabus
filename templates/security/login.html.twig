@@ -11,24 +11,18 @@
                 <img src="{{ asset('/img/door.jpg') }}" class="card-img-top" alt="door">
                 <div class="card-body">
 
+                    {% if app.user %}
+                    <div class="container-fluid text-center">
+                        {{ app.user.username }} <br>
+                        Vous êtes déja connecté <br>
+                        <a class="btn btn_material" href="{{ path('home') }}">Accueil</a>
+                        <a class="btn btn_material" href="{{ path('app_logout') }}">Se déconnecter</a>
+                    </div>
+                    {% else %}
+
                     <form method="post">
                         {% if error %}
                         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}
-                        </div>
-                        {% endif %}
-
-                        {% if app.user %}
-                        <div class="mb-3">
-                            <div class="container-fluid">
-                                <div class="alert alert-dismissible fade show alert-info mt-3">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    Vous êtes déja connecté avec l'adresse : {{ app.user.username }} | <a
-                                        href="{{ path('app_logout') }}">Se
-                                        déconnecter</a>
-                                </div>
-                            </div>
                         </div>
                         {% endif %}
 
@@ -41,15 +35,16 @@
 
                         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-                        {#      Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-                                See https://symfony.com/doc/current/security/remember_me.html
-                                security.yaml est prêt
-                        
-                                <div class="checkbox mb-3">
-                                    <label>
-                                        <input type="checkbox" name="_remember_me"> Remember me
-                                    </label>
-                                </div>
+                        {# Uncomment this section and add a remember_me option below your firewall to activate remember
+                        me functionality.
+                        See https://symfony.com/doc/current/security/remember_me.html
+                        security.yaml est prêt
+
+                        <div class="checkbox mb-3">
+                            <label>
+                                <input type="checkbox" name="_remember_me"> Remember me
+                            </label>
+                        </div>
                         #}
 
                         <div class="text-center">
@@ -57,6 +52,8 @@
                         </div>
 
                     </form>
+
+                    {% endif %}
 
                     {#
                     <div class="py-4 rounded-0 text-center">

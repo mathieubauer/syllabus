@@ -1,0 +1,24 @@
+<div class="card {{ class_bg is defined ? class_bg : '' }}">
+
+    <a href="{{ path('course_show', {'id': course.id}) }}" class="hidden_link">
+
+        <div class="card-body">
+            <strong class="text-dark ml-3 mt-1 mb-2 category" style="white-space: nowrap; float: right;">
+                {{ course.lectureHours|number_format(2, ',', ' ') }}
+            </strong>
+            <!-- <h5 class="card-title fw_600">{{ course.module.name }}</h5> -->
+            <h5 class="card-title fw_600">{{ course.name }}</h5>
+            <p class="card-text fs_875">
+                {% for teachingProfessor in course.teachingProfessor %}
+                {{ teachingProfessor.firstName }} {{ teachingProfessor.lastName }} <br>
+                {% endfor %}
+            </p>
+        </div>
+        <hr class="m-0">
+        <div class="card-body py-2 fs_875 text_color_60 text-right">
+            <button class="btn btn_material p-0 m-0">see more</button>
+        </div>
+
+    </a>
+
+</div>

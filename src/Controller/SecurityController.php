@@ -16,6 +16,8 @@ use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Mime\Address;
+use Symfony\Component\Mime\Email;
 
 class SecurityController extends AbstractController
 {
@@ -40,7 +42,7 @@ class SecurityController extends AbstractController
      * Inscription d'utilisateurs avec mot de passe
      * @Route("/register", name="app_register")
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $authenticator): Response
+    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $authenticator, MailerInterface $mailer): Response
     {
 
         if ($request->isMethod('POST')) {
@@ -49,7 +51,9 @@ class SecurityController extends AbstractController
             $email = $request->request->get('email');
             $password = $request->request->get('password');
             $passwordConfirm = $request->request->get('passwordConfirm');
-            $user = $em->getRepository(User::class)->findOneByEmail($email);
+            $user = $em->getRepository(User::class)->findOneBy([
+                'email' => $email,
+            ]);
 
             if ($user) {
                 $this->addFlash('warning', 'Cet utilisateur est déjà enregistré');
@@ -66,6 +70,19 @@ class SecurityController extends AbstractController
             $user->setPassword($passwordEncoder->encodePassword($user, $password));
             $em->persist($user);
             $em->flush();
+
+            $email = (new TemplatedEmail())
+                ->from(new Address('noreply@dsides.net', "L'équipe dsides"))
+                ->to('ampli@dsides.net')
+                ->subject('Syllabus - Nouvel utilisateur')
+                // ->text($user->getEmail() . " a créé un compte.")
+                // ->html("<h1>Nice to meet you {$user->getEmail()}! ❤️</h1>")
+                ->htmlTemplate('email/welcome.html.twig')
+                ->context([
+                    'user' => $user,
+                ])
+                ;
+            $mailer->send($email);
 
             // $action = 'Register with password';
             // $addTrack = $this->addTrack($action, $user);

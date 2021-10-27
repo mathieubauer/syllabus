@@ -17,26 +17,37 @@ $theme-colors: (
     "twitter_bg":#15202B,
     "learn": $learn-color,
    
-    
+    // Normal 500
     "cyan": #00BCD4,
     "teal": #009688,
     "orange": #FF9800,
     "deep_orange": #FF5722,
-
     "green": #4caf50,
     "light_green": #8bc34a,
     "indigo": #3F51B5,
     "deep_purple": #673AB7,
+    "yellow": #ffeb3b,
+    "light_blue": #03a9f4,
 
+    // Light 200 (sticky notes)
+    "yellow_light": #fff59d,
+    "deep_orange_light": #ffab91,
+    "green_light": #a5d6a7,
+    "light_blue_light": #81d4fa,
+    "blue_gray_light": #b0bec5,
+    "deep_purple_light": #b39ddb,
+
+    // Dark 700
     "cyan_dark": #0097A7,
-    "teal_dark": #00796B, /* 700 */
-    "orange_dark": #F57C00, /* 700 */
-    "deep_orange_dark": #E64A19, /* 700 */
-    
-    "green_dark": #388e3c, /* 700 */
-    "light_green_dark": #689f38, /* 700 */
-    "indigo_dark": #303F9F, /* 700 */
-    "deep_purple_dark": #512da8, /* 700 */
+    "teal_dark": #00796B, 
+    "orange_dark": #F57C00,
+    "deep_orange_dark": #E64A19,
+    "green_dark": #388e3c,
+    "light_green_dark": #689f38,
+    "indigo_dark": #303F9F,
+    "deep_purple_dark": #512da8,
+    "yellow_dark": #fbc02d,
+    "light_blue_dark": #0288d1,
 
     "ifcam_very_dark_blue": #1E3252,
     "ifcam_strong_red": #D73330,

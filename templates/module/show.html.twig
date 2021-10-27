@@ -5,24 +5,68 @@
 {% block body %}
 
 <div class="container mt-4">
-    <h1>{{ module.name }}</h1>
-    <p>Semester: {{ module.semester }}</p>
-    <p>ECTS: {{ module.ects }}</p>
-    <p>Courses:</p>
-    <ul>
-        {% for course in module.courses %}
-        <li>
-            <a href="{{ path('course_show', {'id': course.id}) }}">{{ course.name }}</a>
-        </li>
-        {% endfor %}
-    </ul>
-    <hr>
-    <a href="{{ path('module_index') }}">back to list</a>
-    <a href="{{ path('module_edit', {'id': module.id}) }}">edit</a>
-    {{ include('module/_delete_form.html.twig') }}
+
+    <div class="card">
+
+        <h1 class="card-header mt-0 py-4 bg-{{ module.semester.colorName }}">{{ module.name }}</h1>
+
+        <div class="card-body">
+
+            <p>
+                <span class="fw_600">Semester {{ module.semester.name }}</span> <br>
+                {{ module.semester.period }}
+            </p>
+
+            <p>
+                <span class="fw_600">Module leader:</span>
+                {{ module.leader.firstName }} {{ module.leader.lastName }}
+            </p>
+
+            <p class="mb-0">
+                <span class="fw_600">Lecture Hours:</span>
+                {{ lectureHours }} hrs
+            </p>
+
+            <p class="mb-0">
+                <span class="fw_600">Total student workload:</span>
+                {{ module.ects * 20 }} hrs
+            </p>
+
+            <p>
+                <span class="fw_600">ECTS:</span>
+                {{ module.ects }}
+            </p>
+
+        </div>
+        <hr class="m-0">
+        <div class="card-body">
+
+            <div class="container">
+                <div class="row">
+                    {% for course in module.courses %}
+                    <div class="col">
+                        {% include 'course/_card.html.twig' with {'class_bg': 'bg-' ~ module.semester.colorName ~
+                        '_light' } %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="my-3 d-flex justify-content-between align-items-center">
+        <a href="{{ path('course_index') }}" class="btn btn_material mr-auto">
+            <i class="fas fa-chevron-left mr-2"></i>
+            <span>back to course list</span>
+        </a>
+        {% if is_granted('ROLE_ADMIN') %}
+        {{ include('module/_delete_form.html.twig') }}
+        <a class="btn btn-primary" href="{{ path('module_edit', {'id': module.id}) }}">edit</a>
+        {% endif %}
+    </div>
 
 </div>
-
-
 
 {% endblock %}

@@ -3,9 +3,41 @@
 {% block title %}New Course{% endblock %}
 
 {% block body %}
-    <h1>Create new Course</h1>
+<h1>Create new Course</h1>
 
-    {{ include('course/_form.html.twig') }}
+{{ form_start(form) }}
 
-    <a href="{{ path('course_index') }}">back to list</a>
+{% if form.name is defined %}
+<div class="mb-3">
+    {{ form_row(form.name) }}
+</div>
+{% endif %}
+
+{% if form.teachingProfessor is defined %}
+<div class="mb-3">
+    {{ form_row(form.teachingProfessor) }}
+</div>
+{% endif %}
+
+<div class="mb-3">
+    {{ form_row(form.lectureHours) }}
+</div>
+
+<div class="mb-3">
+    {{ form_row(form.module) }}
+</div>
+
+<div class="my-3 d-flex justify-content-between align-items-center">
+    <a href="{{ path('module_index') }}" class="btn btn_material">
+        <i class="fas fa-chevron-left mr-2"></i>
+        <span>back to module list</span>
+    </a>
+    <button type="submit" class="btn btn-primary">
+        Create
+        <i class="fas fa-plus-circle ml-2"></i>
+    </button>
+</div>
+
+{{ form_end(form) }}
+
 {% endblock %}

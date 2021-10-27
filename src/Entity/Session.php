@@ -19,7 +19,7 @@ class Session
 
     /**
      * @ORM\ManyToOne(targetEntity=Course::class, inversedBy="sessions")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $course;
 

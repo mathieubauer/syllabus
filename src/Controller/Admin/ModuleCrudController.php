@@ -21,7 +21,8 @@ class ModuleCrudController extends AbstractCrudController
         return [
             TextField::new('name'),
             AssociationField::new('leader')->setFormTypeOptions(['choice_label' => 'email']),
-            TextField::new('semester'),
+            AssociationField::new('semester')->setFormTypeOptions(['choice_label' => 'name']),
+            // TextField::new('semester'),
             NumberField::new('ects'),
         ];
     }
