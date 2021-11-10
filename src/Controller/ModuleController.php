@@ -5,7 +5,9 @@ namespace App\Controller;
 use App\Entity\Module;
 use App\Form\ModuleType;
 use App\Repository\CourseRepository;
+use App\Repository\LearningObjectiveRepository;
 use App\Repository\ModuleRepository;
+use App\Repository\SemesterRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,6 +28,20 @@ class ModuleController extends AbstractController
         $modules = $moduleRepository->findBy([], ['semester' => 'ASC']);
         return $this->render('module/index.html.twig', [
             'modules' => $modules,
+        ]);
+    }
+
+    /**
+     * @Route("/list", name="module_index_full", methods={"GET"})
+     */
+    public function list(ModuleRepository $moduleRepository, SemesterRepository $semesterRepository): Response
+    {
+
+        $modules = $moduleRepository->findBy([], ['semester' => 'ASC']);
+        $semesters = $semesterRepository->findAll();
+        return $this->render('module/list_full.html.twig', [
+            'modules' => $modules,
+            'semesters' => $semesters,
         ]);
     }
 
@@ -68,6 +84,31 @@ class ModuleController extends AbstractController
         return $this->render('module/show.html.twig', [
             'module' => $module,
             'lectureHours' => $lectureHours,
+        ]);
+    }
+
+    /**
+     * @Route("/full/{id}", name="module_show_full", methods={"GET"})
+     */
+    public function show_full(Module $module, CourseRepository $courseRepository, LearningObjectiveRepository $learningObjectiveRepository): Response
+    {
+
+        $lectureHours = $courseRepository->createQueryBuilder('c')
+            ->andWhere('c.module = :module')
+            ->setParameter('module', $module)
+            ->select('SUM(c.lectureHours) as lh')
+            ->getQuery()
+            ->getSingleScalarResult();
+
+        $learningObjectives = $learningObjectiveRepository->findBy(
+            [], 
+            ['displayOrder' => 'ASC']
+        );
+
+        return $this->render('module/show_full.html.twig', [
+            'module' => $module,
+            'lectureHours' => $lectureHours,
+            'learningObjectives' => $learningObjectives,
         ]);
     }
 

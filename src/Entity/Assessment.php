@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AssessmentRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -47,6 +49,16 @@ class Assessment
      * @ORM\Column(type="text", nullable=true)
      */
     private $description;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=LearningObjective::class, inversedBy="assessments")
+     */
+    private $learningObjectives;
+
+    public function __construct()
+    {
+        $this->learningObjectives = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -121,6 +133,30 @@ class Assessment
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|LearningObjective[]
+     */
+    public function getLearningObjectives(): Collection
+    {
+        return $this->learningObjectives;
+    }
+
+    public function addLearningObjective(LearningObjective $learningObjective): self
+    {
+        if (!$this->learningObjectives->contains($learningObjective)) {
+            $this->learningObjectives[] = $learningObjective;
+        }
+
+        return $this;
+    }
+
+    public function removeLearningObjective(LearningObjective $learningObjective): self
+    {
+        $this->learningObjectives->removeElement($learningObjective);
 
         return $this;
     }

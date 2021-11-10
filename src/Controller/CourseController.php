@@ -97,6 +97,16 @@ class CourseController extends AbstractController
     }
 
     /**
+     * @Route("/full/{id}", name="course_show_full", methods={"GET"}, requirements={"id"="\d+"})
+     */
+    public function show_full(Course $course): Response
+    {
+        return $this->render('course/show_full.html.twig', [
+            'course' => $course,
+        ]);
+    }
+
+    /**
      * @Route("/{id}/edit", name="course_edit", methods={"GET","POST"})
      * @IsGranted("ROLE_USER")
      */
@@ -209,10 +219,9 @@ class CourseController extends AbstractController
 
         // export_csv
 
-        $logs = $courseRepository->findBy(
+        $courses = $courseRepository->findBy(
             [],
             [
-                // 'module' => 'ASC',
                 'name' => 'ASC'
             ],
         );
@@ -220,17 +229,19 @@ class CourseController extends AbstractController
         date_default_timezone_set('Europe/Paris');
 
         $fp = fopen("php://output", 'w');
-        $filename = 'logs_' . date('YmdHis');
+        $filename = 'courses_' . date('YmdHis');
         $delimiter = ";";
         $enclosure = '"';
 
         $response = new StreamedResponse();
 
-        $response->setCallback(function () use ($logs, $delimiter, $enclosure) {
+        $response->setCallback(function () use ($courses, $delimiter, $enclosure) {
             $handle = fopen('php://output', 'w+');
             fputs($handle, "\xEF\xBB\xBF"); // hack nécessaire à l'encodage
             fputcsv($handle, [
-                'Name',
+                'Semester',
+                'Module',
+                'Course',
                 'Teaching Professors',
                 'Lecture Hours',
                 'Learning Outcomes',
@@ -242,19 +253,21 @@ class CourseController extends AbstractController
                 'E-Learning',
                 'Links with companies',
             ], $delimiter, $enclosure);
-            foreach ($logs as $log) {
-                $data[] = $log->getName();
+            foreach ($courses as $course) {
+                $data[] = $course->getModule()->getSemester()->getName();
+                $data[] = $course->getModule()->getName();
+                $data[] = $course->getName();
                 $professors = '';
-                foreach ($log->getTeachingProfessor() as $professor) {
-                    $professors .= $professor->getLastName() . "\n";
-                    // ne pas en mettre au dernier
+                foreach ($course->getTeachingProfessor() as $professor) {
+                    $professors .= $professor->getLastName() . " ";
+                    // ne pas en mettre au dernier ; ou \n
                 }
                 $data[] = $professors;
-                $data[] = $log->getLectureHours();
-                $data[] = html_entity_decode(str_replace("&#39;", "'", $log->getLearningOutcomes())); // conversion des apostrophes
+                $data[] = $course->getLectureHours();
+                $data[] = html_entity_decode(str_replace("&#39;", "'", $course->getLearningOutcomes())); // conversion des apostrophes
                 $sessions = '';
                 $i = 1;
-                foreach ($log->getSessions() as $session) {
+                foreach ($course->getSessions() as $session) {
                     $sessions .= 'Session ' . $i . ' - ' . $session->getDuration() . "\n";
                     $sessions .= $session->getTheme() . "\n";
                     $sessions .= $session->getBibliographyReferences() . "\n";
@@ -265,7 +278,7 @@ class CourseController extends AbstractController
                 $data[] = $sessions;
                 $assessments = '';
                 $i = 1;
-                foreach ($log->getAssessments() as $assessment) {
+                foreach ($course->getAssessments() as $assessment) {
                     $assessments .= 'Assessment ' . $i . "\n";
                     $assessments .= $assessment->getStage() . "\n";
                     $assessments .= $assessment->getMethod() . "\n";
@@ -274,13 +287,18 @@ class CourseController extends AbstractController
                     // ne pas en mettre au dernier
                 }
                 $data[] = $assessments;
-                $data[] = $log->getTeachingMethods();
-                $data[] = $log->getTextbook();
-                $data[] = $log->getBibliography();
-                $data[] = $log->getELearning();
-                $data[] = $log->getLinksWithCompanies();
+                $data[] = $course->getTeachingMethods();
+                $data[] = $course->getTextbook();
+                $data[] = $course->getBibliography();
+                $data[] = $course->getELearning();
+                $data[] = $course->getLinksWithCompanies();
 
-                fputcsv($handle, $data = (array_map('strip_tags', $data)), $delimiter, $enclosure);
+                $data = array_map('strip_tags', $data);             // strip_tags — Supprime les balises HTML et PHP d'une chaîne
+                $data = array_map('html_entity_decode', $data);     // html_entity_decode — Convertit les entités HTML à leurs caractères correspondant
+                $data = str_replace('&#39;', "'", $data);           // problème avec les apostrophes
+                fputcsv($handle, $data, $delimiter, $enclosure);
+
+                // fputcsv($handle, $data = (array_map('strip_tags', $data)), $delimiter, $enclosure);
                 // fputcsv($handle, $data, $delimiter, $enclosure);
                 $data = [];
             }

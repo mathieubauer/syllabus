@@ -1,0 +1,108 @@
+{% extends 'layout.html.twig' %}
+{% block title %}Syllabus{% endblock %}
+
+{% block navbar %}
+{% include '_navbar.html.twig' with {'path': 'module_index_full' } %}
+{% endblock %}
+
+{% block body %}
+
+<h1>Liste des syllabus</h1>
+
+{% for semester in semesters %}
+
+<h2>Semester {{ semester.name }}</h2>
+<p class="fw_600">{{ semester.period }}</p>
+
+<div class="container">
+    <div class="row row-cols-1 row-cols-md-2">
+
+        {% for module in modules|filter(module => module.semester == semester) %}
+        
+        <div class="col mb-3">
+
+            <a href="{{ path('module_show_full', {'id': module.id}) }}" class="hidden_link">
+                <div class="module_container p-4 border border-{{ semester.colorName }} rounded h-100 d-flex flex-column">
+            
+                    <div class="w-100z">
+                        <h3 class="mt-0">{{ module.name }}</h3>
+                        {% for course in module.courses %}
+                        {% for teachingProfessor in course.teachingProfessor %}
+                        <span>{{ teachingProfessor.firstName }} {{ teachingProfessor.lastName }}</span><br>
+                        {% endfor %}
+                        {% endfor %}
+                    </div>
+                    <div class="text-right w-100z mt-auto">
+                        <button class="btn btn_material p-0 mt-3 mb-0 mx-0">see more</button>
+                    </div>
+            
+                </div>
+            </a>
+
+        </div>
+        
+        {% endfor %}
+
+    </div>
+</div>
+
+
+
+{% endfor %}
+
+{% endblock %}
+
+{#
+
+{% extends 'base.html.twig' %}
+{% block title %}Liste des modules{% endblock %}
+{% block body %}
+
+<h1>Management des RH et de la transformation digitale</h1>
+<h2>Syllabus</h2>
+
+<table class="table my-5">
+    <thead>
+        <tr>
+            <th>Module</th>
+            <th>Courses</th>
+            <th>Semester</th>
+            <th>Ects</th>
+            <th>Edit</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for module in modules %}
+        <tr>
+            <td>
+                <a href="{{ path('module_show_full', {'id': module.id}) }}">{{ module.name }}</a>
+            </td>
+
+            <td>{{ module.semester.name }}</td>
+            <td>{{ module.ects }}</td>
+            <td>
+                <a href="{{ path('module_edit', {'id': module.id}) }}" class="hidden_link">
+                    <i class="fas fa-pencil-alt"></i>
+                </a>
+            </td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="5">no records found</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% if is_granted('ROLE_ADMIN') %}
+<a href="{{ path('module_new') }}" class="btn btn-outline-primary">Create new module</a>
+<a href="{{ path('course_new') }}" class="btn btn-outline-primary">Create new course</a> <br>
+{% endif %}
+
+<a href="{{ path('course_index') }}" class="btn btn_material">
+    <i class="fas fa-chevron-left mr-2"></i>
+    <span>back to course list</span>
+</a>
+{% endblock %}
+
+#}

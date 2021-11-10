@@ -47,6 +47,61 @@ class Module
      */
     private $semester;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $department;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $subDepartment;
+
+    /**
+     * @ORM\Column(type="string", length=20, nullable=true)
+     */
+    private $code;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $prerequiste;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $assessmentMidHours;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $assessmentFinalHours;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $syncElearningHours;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $asyncElearningHours;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $selfStudyHours;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $projecthours;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $otherHours;
+
     public function __construct()
     {
         $this->courses = new ArrayCollection();
@@ -131,6 +186,138 @@ class Module
     public function setSemester(?Semester $semester): self
     {
         $this->semester = $semester;
+
+        return $this;
+    }
+
+    public function getDepartment(): ?string
+    {
+        return $this->department;
+    }
+
+    public function setDepartment(?string $department): self
+    {
+        $this->department = $department;
+
+        return $this;
+    }
+
+    public function getSubDepartment(): ?string
+    {
+        return $this->subDepartment;
+    }
+
+    public function setSubDepartment(?string $subDepartment): self
+    {
+        $this->subDepartment = $subDepartment;
+
+        return $this;
+    }
+
+    public function getCode(): ?string
+    {
+        return $this->code;
+    }
+
+    public function setCode(?string $code): self
+    {
+        $this->code = $code;
+
+        return $this;
+    }
+
+    public function getPrerequiste(): ?string
+    {
+        return $this->prerequiste;
+    }
+
+    public function setPrerequiste(?string $prerequiste): self
+    {
+        $this->prerequiste = $prerequiste;
+
+        return $this;
+    }
+
+    public function getAssessmentMidHours(): ?float
+    {
+        return $this->assessmentMidHours;
+    }
+
+    public function setAssessmentMidHours(?float $assessmentMidHours): self
+    {
+        $this->assessmentMidHours = $assessmentMidHours;
+
+        return $this;
+    }
+
+    public function getAssessmentFinalHours(): ?float
+    {
+        return $this->assessmentFinalHours;
+    }
+
+    public function setAssessmentFinalHours(?float $assessmentFinalHours): self
+    {
+        $this->assessmentFinalHours = $assessmentFinalHours;
+
+        return $this;
+    }
+
+    public function getSyncElearningHours(): ?float
+    {
+        return $this->syncElearningHours;
+    }
+
+    public function setSyncElearningHours(?float $syncElearningHours): self
+    {
+        $this->syncElearningHours = $syncElearningHours;
+
+        return $this;
+    }
+
+    public function getAsyncElearningHours(): ?float
+    {
+        return $this->asyncElearningHours;
+    }
+
+    public function setAsyncElearningHours(?float $asyncElearningHours): self
+    {
+        $this->asyncElearningHours = $asyncElearningHours;
+
+        return $this;
+    }
+
+    public function getSelfStudyHours(): ?float
+    {
+        return $this->selfStudyHours;
+    }
+
+    public function setSelfStudyHours(?float $selfStudyHours): self
+    {
+        $this->selfStudyHours = $selfStudyHours;
+
+        return $this;
+    }
+
+    public function getProjecthours(): ?float
+    {
+        return $this->projecthours;
+    }
+
+    public function setProjecthours(?float $projecthours): self
+    {
+        $this->projecthours = $projecthours;
+
+        return $this;
+    }
+
+    public function getOtherHours(): ?float
+    {
+        return $this->otherHours;
+    }
+
+    public function setOtherHours(?float $otherHours): self
+    {
+        $this->otherHours = $otherHours;
 
         return $this;
     }

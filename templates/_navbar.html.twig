@@ -12,7 +12,7 @@
         {% endif %}
 
         <!-- TITRE -->
-        <a class="navbar-brand pl-2" href="{{ path('home') }}">{{ sitename }}</a>
+        <a class="navbar-brand pl-2" href="{{ path(path is defined ? path : 'home') }}">{{ sitename }}</a>
 
         <!-- BOUTON USER (toggler, à droite) -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navUser"

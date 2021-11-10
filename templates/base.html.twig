@@ -12,7 +12,8 @@
 </head>
 
 <body>
-    {{ include('_navbar.html.twig') }}
+    {% block navbar %}{{ include('_navbar.html.twig') }}{% endblock %}
+    
     {{ include('_alert.html.twig') }}
     <div class="container my-5">
         {% block body %}{% endblock %}

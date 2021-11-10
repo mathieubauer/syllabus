@@ -11,6 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 use App\Entity\Module;
 use App\Entity\Course;
+use App\Entity\LearningObjective;
 use App\Entity\Semester;
 use App\Entity\User;
 use App\Entity\Session;
@@ -51,6 +52,7 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToCrud('Courses', 'fa fa-file', Course::class),
             MenuItem::linkToCrud('Sessions', 'fa fa-file-alt', Session::class),
             MenuItem::linkToCrud('Assessments', 'fa fa-file-alt', Assessment::class),
+            MenuItem::linkToCrud('Learning objectives', 'fa fa-file-alt', LearningObjective::class),
 
             MenuItem::section('Links'),
             MenuItem::linkToRoute('Home', 'fa fa-home', 'home'),

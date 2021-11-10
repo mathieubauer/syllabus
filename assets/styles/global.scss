@@ -22,3 +22,32 @@ body {
 .module_container {
     border-left-width: 10px !important;
 }
+
+#accreditations_format {
+    font-family: "Arial Narrow", Arial, sans-serif; 
+} 
+
+#accreditations_format p, 
+#accreditations_format ul, 
+#accreditations_format h3 
+{
+    margin: 0;
+}
+
+#accreditations_format td, #accreditations_format th {
+    padding: 5px;
+    vertical-align: middle;
+}
+
+#accreditations_format #LO td {
+    padding: 0px 5px;
+}
+
+#accreditations_format #AM td {
+    padding: 0px 5px;
+    font-size: 8pt;
+}
+
+#accreditations_format table.session_list th {
+    padding: 10px 5px;
+}

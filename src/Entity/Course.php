@@ -80,6 +80,16 @@ class Course
      */
     private $assessments;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $language;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $description;
+
     public function __construct()
     {
         $this->teachingProfessor = new ArrayCollection();
@@ -280,6 +290,30 @@ class Course
                 $assessment->setCourse(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getLanguage(): ?string
+    {
+        return $this->language;
+    }
+
+    public function setLanguage(?string $language): self
+    {
+        $this->language = $language;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }
