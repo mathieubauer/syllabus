@@ -20,7 +20,10 @@ class SessionCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            AssociationField::new('course')->setFormTypeOptions(['choice_label' => 'name']),
+            AssociationField::new('course')->setFormTypeOptions(['choice_label' => 'name'])
+            ->formatValue(function ($value, $entity) {
+                return $entity->getCourse()->getName();
+            }),
             TextField::new('theme'),
             NumberField::new('duration')->setHelp("Indiquer la durée en minutes"),
             TextEditorField::new('bibliographyReferences'),

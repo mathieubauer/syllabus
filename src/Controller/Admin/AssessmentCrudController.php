@@ -36,7 +36,10 @@ class AssessmentCrudController extends AbstractCrudController
         ]);
 
         return [
-            AssociationField::new('course')->setFormTypeOptions(['choice_label' => 'name']),
+            AssociationField::new('course')->setFormTypeOptions(['choice_label' => 'name'])
+            ->formatValue(function ($value, $entity) {
+                return $entity->getCourse()->getName();
+            }),
             ChoiceField::new('method')->setChoices([
                 'Individual Project Assignment' => 'Individual Project Assignment',
                 'Group Project Assignment' => 'Group Project Assignment',

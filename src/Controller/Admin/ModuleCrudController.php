@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Module;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
@@ -17,6 +18,15 @@ class ModuleCrudController extends AbstractCrudController
         return Module::class;
     }
 
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            ->setDefaultSort([
+                'semester' => 'ASC',
+            ])
+            ->setPaginatorPageSize(30);
+    }
+
     public function configureFields(string $pageName): iterable
     {
         return [
@@ -24,8 +34,14 @@ class ModuleCrudController extends AbstractCrudController
                 // ->setIcon('fa fa-lightbulb')
                 ->collapsible(),
             TextField::new('name'),
-            AssociationField::new('leader')->setFormTypeOptions(['choice_label' => 'email']),
-            AssociationField::new('semester')->setFormTypeOptions(['choice_label' => 'name']),
+            AssociationField::new('leader')->setFormTypeOptions(['choice_label' => 'email'])
+            ->formatValue(function ($value, $entity) {
+                return $entity->getLeader()->getEmail();
+            }),
+            AssociationField::new('semester')->setFormTypeOptions(['choice_label' => 'name'])
+            ->formatValue(function ($value, $entity) {
+                return $entity->getSemester()->getName();
+            }),
             NumberField::new('ects'),
 
             FormField::addPanel('Informations pour syllabus')
