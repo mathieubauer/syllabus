@@ -1,47 +1,44 @@
 {% extends 'layout.html.twig' %}
-
 {% block title %}Assessment index{% endblock %}
-
 {% block body %}
 
+<div class="container-fluid">
 
-<h1>Assessment index</h1>
+    <h1>Assessment index</h1>
+    
+    {% for semester in semesters %}
+    <h2>Semester {{ semester.name }}</h2>
+    
+    <table class="table">
+        <thead>
+            <tr>
+                <th style="width: 20%">Course</th>
+                <th style="width: 20%">Method</th>
+                <th style="width: 20%">Stage</th>
+                <th style="width: 40%">Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for assessment in assessments|filter(assessment => assessment.course.module.semester == semester) %}
+            <tr>
+                <td><a href="{{ path('course_show', {'id': assessment.course.id}) }}">{{ assessment.course.name }}</a>
+                </td>
+                <td>{{ assessment.method }}</td>
+                <td>{{ assessment.stage }}</td>
+                <td>{{ assessment.description|raw }}</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    {% endfor %}
+    
+    <a class="btn btn_material mt-3" href="{{ path('course_index') }}">Back to list</a>
 
-{% for semester in semesters %}
-<h2>Semester {{ semester.name }}</h2>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th style="width: 20%">Course</th>
-            <th style="width: 20%">Method</th>
-            <th style="width: 20%">Stage</th>
-            <th style="width: 40%">Description</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for assessment in assessments|filter(assessment => assessment.course.module.semester == semester) %}
-        <tr>
-            <td><a href="{{ path('course_show', {'id': assessment.course.id}) }}">{{ assessment.course.name }}</a>
-            </td>
-            <td>{{ assessment.method }}</td>
-            <td>{{ assessment.stage }}</td>
-            <td>{{ assessment.description|nl2br }}</td>
-        </tr>
-        {% else %}
-        <tr>
-            <td colspan="7">no records found</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-
-{% endfor %}
-
-
-
-<a class="btn btn_material mt-3" href="{{ path('course_index') }}">Back to list</a>
-
-
+</div>
 
 {% endblock %}

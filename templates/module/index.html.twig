@@ -1,53 +1,56 @@
 {% extends 'base.html.twig' %}
-
 {% block title %}Module index{% endblock %}
-
 {% block body %}
 
-<table class="table my-5">
-    <thead>
-        <tr>
-            <th>Module</th>
-            <th>Courses</th>
-            <th>Semester</th>
-            <th>Ects</th>
-            <th>Edit</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for module in modules %}
-        <tr>
-            <td>
-                <a href="{{ path('module_show', {'id': module.id}) }}">{{ module.name }}</a>
-            </td>
-            <td>
-                {% for course in module.courses %}
-                <a href="{{ path('course_show', {'id': course.id}) }}">{{ course.name }}</a><br>
-                {% endfor %}
-            </td>
-            <td>{{ module.semester.name }}</td>
-            <td>{{ module.ects }}</td>
-            <td>
-                <a href="{{ path('module_edit', {'id': module.id}) }}" class="hidden_link">
-                    <i class="fas fa-pencil-alt"></i>
-                </a>
-            </td>
-        </tr>
-        {% else %}
-        <tr>
-            <td colspan="5">no records found</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<div class="container-fluid">
 
-{% if is_granted('ROLE_ADMIN') %}
-<a href="{{ path('module_new') }}" class="btn btn-outline-primary">Create new module</a>
-<a href="{{ path('course_new') }}" class="btn btn-outline-primary">Create new course</a> <br>
-{% endif %}
+    <table class="table my-5">
+        <thead>
+            <tr>
+                <th>Module</th>
+                <th>Courses</th>
+                <th>Semester</th>
+                <th>Ects</th>
+                <th>Edit</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for module in modules %}
+            <tr>
+                <td>
+                    <a href="{{ path('module_show', {'id': module.id}) }}">{{ module.name }}</a>
+                </td>
+                <td>
+                    {% for course in module.courses %}
+                    <a href="{{ path('course_show', {'id': course.id}) }}">{{ course.name }}</a><br>
+                    {% endfor %}
+                </td>
+                <td>{{ module.semester.name }}</td>
+                <td>{{ module.ects }}</td>
+                <td>
+                    <a href="{{ path('module_edit', {'id': module.id}) }}" class="hidden_link">
+                        <i class="fas fa-pencil-alt"></i>
+                    </a>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    {% if is_granted('ROLE_ADMIN') %}
+    <a href="{{ path('module_new') }}" class="btn btn-outline-primary">Create new module</a>
+    <a href="{{ path('course_new') }}" class="btn btn-outline-primary">Create new course</a> <br>
+    {% endif %}
+    
+    <a href="{{ path('course_index') }}" class="btn btn_material">
+        <i class="fas fa-chevron-left mr-2"></i>
+        <span>back to course list</span>
+    </a>
 
-<a href="{{ path('course_index') }}" class="btn btn_material">
-    <i class="fas fa-chevron-left mr-2"></i>
-    <span>back to course list</span>
-</a>
+</div>
+
 {% endblock %}

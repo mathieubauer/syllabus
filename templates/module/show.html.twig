@@ -61,10 +61,20 @@
             <i class="fas fa-chevron-left mr-2"></i>
             <span>back to course list</span>
         </a>
+
         {% if is_granted('ROLE_ADMIN') %}
-        {{ include('module/_delete_form.html.twig') }}
-        <a class="btn btn-primary" href="{{ path('module_edit', {'id': module.id}) }}">edit</a>
+        
+        {% set url = ea_url()
+        .setController('App\\Controller\\Admin\\ModuleCrudController')
+        .setAction('edit')
+        .setEntityId(module.id) %}
+        <a class="btn btn-primary" href="{{ url }}">
+            edit admin
+            <i class="fas fa-pencil-alt ml-2"></i>
+        </a>
+        
         {% endif %}
+
     </div>
 
 </div>

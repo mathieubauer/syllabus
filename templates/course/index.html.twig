@@ -1,34 +1,36 @@
 {% extends 'layout.html.twig' %}
-
 {% block title %}Syllabus{% endblock %}
-
 {% block body %}
 
-{% for semester in semesters %}
+<div class="container">
 
-<h1>Semester {{ semester.name }}</h1>
-<p class="fw_600">{{ semester.period }}</p>
-
-{% for module in modules|filter(module => module.semester == semester) %}
-
-<div class="module_container p-4 mb-3 border border-{{ semester.colorName }} rounded">
-
-    <div class="container">
-        <h3 class="mt-0">{{ module.name }}</h3>
-        <div class="row">
-            {% for course in module.courses %}
-            <div class="col">
-                {% include 'course/_card.html.twig' with {'class_bg': 'bg-' ~ semester.colorName ~ '_light' } %}
+    {% for semester in semesters %}
+    
+    <h1>Semester {{ semester.name }}</h1>
+    <p class="fw_600">{{ semester.period }}</p>
+    
+    {% for module in modules|filter(module => module.semester == semester) %}
+    
+    <div class="module_container p-4 mb-3 border border-{{ semester.colorName }} rounded">
+    
+        <div class="container">
+            <h3 class="mt-0">{{ module.name }}</h3>
+            <div class="row">
+                {% for course in module.courses %}
+                <div class="col">
+                    {% include 'course/_card.html.twig' with {'class_bg': 'bg-' ~ semester.colorName ~ '_light' } %}
+                </div>
+                {% endfor %}
+    
             </div>
-            {% endfor %}
-
         </div>
+    
     </div>
+    
+    {% endfor %}
+    
+    {% endfor %}
 
 </div>
-
-{% endfor %}
-
-{% endfor %}
 
 {% endblock %}
