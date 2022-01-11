@@ -1,7 +1,5 @@
 {% extends 'base.html.twig' %}
-
 {% block title %}Syllabus{% endblock %}
-
 {% block body %}
 
 <div class="container my-4">
@@ -49,9 +47,9 @@
                 <tbody>
                     {% for assessment in course.assessments %}
                     <tr>
-                        <th scope="row">{{ assessment.stage|nl2br }}</th>
-                        <td>{{ assessment.method|nl2br }}</td>
-                        <td>{{ assessment.description|nl2br }}</td>
+                        <th scope="row">{{ assessment.stage }}</th>
+                        <td>{{ assessment.method }}</td>
+                        <td>{{ assessment.description|raw }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -73,9 +71,9 @@
                     <tr>
                         <th scope="row">{{ loop.index }}</th>
                         <td>{{ session.duration}}</td>
-                        <td>{{ session.theme|nl2br }}</td>
-                        <td class="text-break">{{ session.bibliographyReferences|nl2br }}</td>
-                        <td>{{ session.assignment|nl2br }}</td>
+                        <td>{{ session.theme|raw }}</td>
+                        <td class="text-break">{{ session.bibliographyReferences|raw }}</td>
+                        <td>{{ session.assignment|raw }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>

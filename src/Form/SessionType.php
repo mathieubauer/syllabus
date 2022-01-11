@@ -17,22 +17,9 @@ class SessionType extends AbstractType
     {
         $builder
             ->add('duration')
-            // ->add('theme', CKEditorType::class)
-            // ->add('bibliographyReferences', CKEditorType::class)
-            // ->add('assignment', CKEditorType::class)
-            ->add('theme', TextareaType::class, [
-                'required' => false
-            ])
-            ->add('bibliographyReferences', TextareaType::class, [
-                'required' => false
-            ])
-            ->add('assignment', TextareaType::class, [
-                'required' => false
-            ])
-            // ->add('course', EntityType::class, [
-            //     'class' => Course::class,
-            //     'choice_label' => 'name',
-            // ])
+            ->add('theme', CKEditorType::class, ['config' => ['height' => 130]])
+            ->add('bibliographyReferences', CKEditorType::class)
+            ->add('assignment', CKEditorType::class)
         ;
     }
 

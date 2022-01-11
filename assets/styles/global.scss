@@ -51,3 +51,7 @@ body {
 #accreditations_format table.session_list th {
     padding: 10px 5px;
 }
+
+#accreditations_format table, #accreditations_format th, #accreditations_format td {
+    border: 1px solid black;
+}

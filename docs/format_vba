@@ -1,0 +1,90 @@
+Sub formatSyllabus()
+
+    Application.ScreenUpdating = False
+
+    Dim mytable As Table
+ 
+    For Each mytable In ActiveDocument.Tables
+    'mytable.Range.Editors.Add wdEditorEveryone
+    mytable.AutoFitBehavior (wdAutoFitWindow)
+    Next
+    
+    Selection.WholeStory
+    With Selection.ParagraphFormat
+        .SpaceBefore = 0
+        .SpaceBeforeAuto = False
+        .SpaceAfter = 0
+        .SpaceAfterAuto = False
+        .LineSpacingRule = wdLineSpaceSingle
+        .LineUnitBefore = 0
+        .LineUnitAfter = 0
+    End With
+    
+
+    Dim p As Paragraph
+    
+    With ActiveDocument
+        For Each p In .Paragraphs
+            If p.Style = "Titre 1" Then
+                p.Style = ActiveDocument.Styles("Titre")
+            End If
+            If p.Style = "Titre 2" Then
+                p.Style = ActiveDocument.Styles("Titre 1")
+            End If
+            If p.Style = "Titre 3" Then
+                p.Style = ActiveDocument.Styles("Titre 2")
+            End If
+            If p.Style = "Titre 4" Then
+                p.Style = ActiveDocument.Styles("Titre 4")
+            End If
+        Next p
+    End With
+    
+    Dim folderPath As String
+    Dim filePath As String
+
+
+    folderPath = "/Users/mathieubauer/Google Drive/PSB - Master RH/Syllabus/Syllabus 2021 2022/"
+
+    ActiveDocument.Paragraphs(2).Range.Select
+    
+    ' Suppression du retour en fin de paragraphe
+    Selection = Replace(Selection, Chr(13), "")
+    
+    filePath = folderPath & Selection & ".docx"
+    
+    ActiveDocument.SaveAs2 fileName:=filePath
+    
+
+    Selection.Delete
+    ActiveDocument.Save
+    
+    
+
+    
+    ' Selection.WholeStory
+    ' ActiveDocument.Styles("Titre 1").Delete
+    ' Selection.Style = ActiveDocument.Styles("Titre 1")
+    
+    ' Selection.Paragraphs
+    
+    'ActiveDocument.SelectAllEditableRanges (wdEditorEveryone)
+    'ActiveDocument.DeleteAllEditableRanges (wdEditorEveryone)
+
+    ' Selection.Style = ActiveDocument.Styles("Titre 1")
+    'Selection.Style = ActiveDocument.Styles("Titre 2")
+    'Selection.Style = ActiveDocument.Styles("Titre 4")
+    'Selection.Tables(1).AutoFitBehavior (wdAutoFitWindow)
+    'Selection.Tables(1).AutoFitBehavior (wdAutoFitWindow)
+    
+End Sub
+Sub Macro2()
+'
+' Macro2 Macro
+'
+'
+    
+End Sub
+Sub NombreDeDocuments()
+    Debug.Print Documents.Count
+End Sub

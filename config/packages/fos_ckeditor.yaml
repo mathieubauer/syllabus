@@ -13,9 +13,10 @@ fos_ck_editor:
         user_config:
             toolbar: [ ["Bold", "Italic", "Underline", "-", "NumberedList", "BulletedList", "Link" ] ]
             removePlugins: 'elementspath'
+            resize_enabled: false
             # uiColor: "#66AB16"
             extraPlugins: ['justify', 'font']
-            height: 100
+            height: 130
         
         admin_config:
             extraPlugins: ['justify', 'font']

@@ -1,8 +1,7 @@
 {% extends 'base.html.twig' %}
-
 {% block title %}Edit Syllabus{% endblock %}
-
 {% block body %}
+
 
 <div class="container mt-4">
 
@@ -11,12 +10,12 @@
     {{ form_start(form) }}
 
     {% if form.learningOutcomes is defined %}
-    <h2>Learning Outcomes</h2>
+    <h2 class="bg-{{ course.module.semester.colorName }}_light p-3">Learning Outcomes</h2>
     {{ form_widget(form.learningOutcomes) }}
     {% endif %}
 
     {% if form.sessions is defined %}
-    <h2>Sessions</h2>
+    <h2 class="bg-{{ course.module.semester.colorName }}_light p-3">Sessions</h2>
     <div id="sessions" class="sessions" data-prototype="{{ form_widget(form.sessions.vars.prototype)|e('html_attr') }}">
         <div class="row">
             <div class="col-md-2 fw_600">Duration</div>
@@ -74,7 +73,7 @@
 
     {{ form_widget(form.save_and_add_session) }}
 
-    <h2>Assessments</h2>
+    <h2 class="bg-{{ course.module.semester.colorName }}_light p-3">Assessments</h2>
     <div id="assessments" class="assessments"
         data-prototype="{{ form_widget(form.assessments.vars.prototype)|e('html_attr') }}">
         <div class="row mb-3">
@@ -129,19 +128,19 @@
 
     {{ form_widget(form.save_and_add_assessment) }}
 
-    <h2>Teaching Methods</h2>
+    <h2 class="bg-{{ course.module.semester.colorName }}_light p-3">Teaching Methods</h2>
     {{ form_widget(form.teachingMethods) }}
 
-    <h2>Textbook</h2>
+    <h2 class="bg-{{ course.module.semester.colorName }}_light p-3">Textbook</h2>
     {{ form_widget(form.textbook) }}
 
-    <h2>Bibliography</h2>
+    <h2 class="bg-{{ course.module.semester.colorName }}_light p-3">Bibliography</h2>
     {{ form_widget(form.bibliography) }}
 
-    <h2>E-Learning</h2>
+    <h2 class="bg-{{ course.module.semester.colorName }}_light p-3">E-Learning</h2>
     {{ form_widget(form.eLearning) }}
 
-    <h2>Links with companies</h2>
+    <h2 class="bg-{{ course.module.semester.colorName }}_light p-3">Links with companies</h2>
     {{ form_widget(form.linksWithCompanies) }}
 
     <div class="my-3 d-flex justify-content-between align-items-center">

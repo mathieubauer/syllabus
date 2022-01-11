@@ -35,9 +35,10 @@ class AssessmentType extends AbstractType
                 ]
             ])
             // ->add('isSupervised')
-            ->add('description', TextareaType::class, [
+/*             ->add('description', TextareaType::class, [
                 'required' => false
-            ])
+            ]) */
+            ->add('description', CKEditorType::class, ['config' => ['height' => 130]])
             // ->add('course', EntityType::class, [
             //     'class' => Course::class,
             //     'choice_label' => 'name',

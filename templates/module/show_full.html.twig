@@ -9,7 +9,9 @@
 
 <div id="accreditations_format" class="container my-4">
 
-    <div class="syllabus">
+    <button id="copy" class="btn btn-primary">Copier</button>
+
+    <div id="syllabus" class="syllabus">
         
         <h1 class="text-center">SYLLABUS - PLAN DE COURS 2021-2022</h1>
         <p class="text-center fs_750 text_color_60">2021-{{ module.code }}-Semester {{ module.semester.name }}-{{ module.name }}</p>
@@ -187,7 +189,7 @@
 
 
         <h2>D. Learning objectives and assessment measures</h2>
-        <p class="font-italic">Select in the left column “I” for an Introduced LO, “R” for a Reinforced LO, or “M” for a Mastered LO</p>
+        <p class="font-italic bg-danger fw_600 text-white">Select in the left column “I” for an Introduced LO, “R” for a Reinforced LO, or “M” for a Mastered LO</p>
     
         <table id="LO" class="table table-bordered mb-4 fs_875">
             <tbody>
@@ -322,8 +324,8 @@
 
         <table id="AM" class="table table-bordered mb-4 fs_875">
             <tr>
-                <td rowspan="2" colspan="2" class="fw_600" style="padding: 10px; font-size: 10pt;">Assessment methods</td>
-                <td colspan="14" class="bg-light_blue_light fw_600 text-center" style="padding: 10px; font-size: 10pt;">Intended learning objectives to be assessed</td>
+                <td rowspan="2" colspan="2" class="fw_600" style="padding: 5px; font-size: 10pt;">Assessment methods</td>
+                <td colspan="14" class="bg-light_blue_light fw_600 text-center" style="padding: 5px; font-size: 10pt;">Intended learning objectives to be assessed</td>
             </tr>
 
 
@@ -603,10 +605,11 @@
             <thead>
                 <tr class="bg-light_blue_light">
                     <th scope="col">Session</th>
-                    <th scope="col">Duration</th>
-                    <th scope="col">Theme</th>
-                    <th scope="col">Bibliography References</th>
-                    <th scope="col">Assignment</th>
+                    <th scope="col">Session duration (In class or Synchronous e-Learning)</th>
+                    <th scope="col">THEME</th>
+                    <th scope="col">BIBLIOGRAPHY REFERENCES (Reading before class)</th>
+                    <th scope="col">Asynchronous e-Learning (Indicate Before or after class)</th>
+                    <th scope="col">ASSIGNMENT / ASSESSMENT (Indicate before or in-class)</th>
                 </tr>
             </thead>
             <tbody>
@@ -616,6 +619,7 @@
                     <td class="text-center">{{ session.duration / 60}}</td>
                     <td>{{ session.theme|nl2br }}</td>
                     <td class="text-break">{{ session.bibliographyReferences|nl2br }}</td>
+                    <td class="text-break"></td>
                     <td>{{ session.assignment|nl2br }}</td>
                 </tr>
                 {% endfor %}
@@ -648,61 +652,78 @@
         
     
         <h2>J. Teaching Methods</h2>
-    
-        <p>Typically classroom time will be used in the following way: lecture and presentation of the content led by the
-            instructor, in-class exercises linked to lectures, discussions on readings.
-            In addition, students are expected to prepare themselves through the following mechanisms: reading recommended
-            chapters
-            and articles, solving the exercises related to each session, research and preparation of the lecture,
-            preparation of
-            case studies.
-            The content and the slides are available to student though school extranet including the sessions’ slides,
-            exercises and
-            readings.</p>
-    
-        <p>Lectures are used to discuss the key concepts, themes and techniques of the module. Theoretical issues will
-            always be
-            illustrated by recent examples; therefore students are strongly encouraged to regularly read business
-            newspapers.
-            Besides, reading the news is an excellent way to exercise one's analytical skills and to bridge the gap between
-            theoretical knowledge and daily events.</p>
-    
-        <p>To encourage involvement in the learning process students will be asked to participate individually to the
-            lecture
-            and
-            to present their solutions to exercises. This will constitute an opportunity for a feedback by the instructor,
-            and
-            as
-            such, should be considered as part of formative assessment.
-            If the module is given in English, French translations will be given for important technical and ‘jargon’ terms.
-        </p>
 
-        <br>
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <td>
+                        <p>Typically classroom time will be used in the following way: lecture and presentation of the content led by the
+                            instructor, in-class exercises linked to lectures, discussions on readings.
+                            In addition, students are expected to prepare themselves through the following mechanisms: reading recommended
+                            chapters
+                            and articles, solving the exercises related to each session, research and preparation of the lecture,
+                            preparation of
+                            case studies.
+                            The content and the slides are available to student though school extranet including the sessions’ slides,
+                            exercises and
+                            readings.</p>
+                        
+                        <p>Lectures are used to discuss the key concepts, themes and techniques of the module. Theoretical issues will
+                            always be
+                            illustrated by recent examples; therefore students are strongly encouraged to regularly read business
+                            newspapers.
+                            Besides, reading the news is an excellent way to exercise one's analytical skills and to bridge the gap between
+                            theoretical knowledge and daily events.</p>
+                        
+                        <p>To encourage involvement in the learning process students will be asked to participate individually to the
+                            lecture
+                            and
+                            to present their solutions to exercises. This will constitute an opportunity for a feedback by the instructor,
+                            and
+                            as
+                            such, should be considered as part of formative assessment.
+                            If the module is given in English, French translations will be given for important technical and ‘jargon’ terms.
+                        </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     
+        
     
     
         <h2>K. Academic Integrity</h2>
+
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <td>
+                        <p>Students are required to read the article related to the PSB – Paris School of Business Rules and Regulation on
+                            plagiarism and to acknowledge the multiple forms that plagiarism takes along with the sanctions that can go as
+                            far as
+                            school exclusion. Every infraction will be reported to the disciplinary board which will analyze the situation
+                            and
+                            circumstances, and decide the sanction to apply.</p>
+                        
+                        <p>Academic dishonesty may take the forms of: 1. Plagiarism, i.e. copying the ideas or work of another person
+                            without
+                            citing the source. This includes books, extracts of articles, tables, diagrams and material from internet or
+                            other
+                            electronic sources. 2. Submission of work more than once, including work submitted at a prior institution,
+                            unless prior
+                            approval has been obtained. 3. Cheating on an examination. 4. Submission of work that is not your own without
+                            citation.
+                            5. Adding your name to work to which you have not contributed or allowing another student to do the same. 6.
+                            Unauthorized or inappropriate use of computers, calculators and other forms of technology in coursework,
+                            assignments or
+                            examinations. All these can lead to disciplinary sanction.
+                            Please refer to your student handbook for full details.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     
-        <p>Students are required to read the article related to the PSB – Paris School of Business Rules and Regulation on
-            plagiarism and to acknowledge the multiple forms that plagiarism takes along with the sanctions that can go as
-            far as
-            school exclusion. Every infraction will be reported to the disciplinary board which will analyze the situation
-            and
-            circumstances, and decide the sanction to apply.</p>
-    
-        <p>Academic dishonesty may take the forms of: 1. Plagiarism, i.e. copying the ideas or work of another person
-            without
-            citing the source. This includes books, extracts of articles, tables, diagrams and material from internet or
-            other
-            electronic sources. 2. Submission of work more than once, including work submitted at a prior institution,
-            unless prior
-            approval has been obtained. 3. Cheating on an examination. 4. Submission of work that is not your own without
-            citation.
-            5. Adding your name to work to which you have not contributed or allowing another student to do the same. 6.
-            Unauthorized or inappropriate use of computers, calculators and other forms of technology in coursework,
-            assignments or
-            examinations. All these can lead to disciplinary sanction.
-            Please refer to your student handbook for full details.</p>
+        
     
     
     
@@ -721,5 +742,26 @@
     </div>
 
 </div>
+
+<script>
+    // function copy() {
+    //     var copyText = document.querySelector("#syllabus");
+    //     copyText.select();
+    //     document.execCommand("copy");
+    // }
+    // document.querySelector("#copy").addEventListener("click", copy);
+
+    function copy() {
+        var copyText = document.querySelector("#syllabus")
+        var range = document.createRange()
+        range.selectNode(copyText)
+        window.getSelection().removeAllRanges() // clear current selection
+        window.getSelection().addRange(range) // to select text
+        document.execCommand("copy")
+        window.getSelection().removeAllRanges() // to deselect
+    }
+    document.querySelector("#copy").addEventListener("click", copy);
+
+</script>
 
 {% endblock %}
