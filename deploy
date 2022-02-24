@@ -1,3 +1,4 @@
 #!/bin/sh
 rsync -av ./ ssh qp6fs_mathieubauer@syllabus-rh.fr:~/syllabus --include=public/.htaccess --include=public/build --exclude-from=.gitignore 
-ssh qp6fs_mathieubauer@syllabus-rh.fr 'cd ~/syllabus && composer install && bin/console doctrine:migrations:migrate && bin/console cache:clear'
+# ssh qp6fs_mathieubauer@syllabus-rh.fr 'cd ~/syllabus && composer install && bin/console doctrine:migrations:migrate && bin/console cache:clear'
+ssh qp6fs_mathieubauer@syllabus-rh.fr 'cd ~/syllabus && bin/console d:m:m && bin/console c:c'
